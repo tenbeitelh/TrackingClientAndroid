@@ -1,6 +1,7 @@
 package de.hos.indirecttracking;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,13 +27,22 @@ public class MainActivity extends Activity {
         this.btToggle = (ToggleButton) findViewById(R.id.bluetoothToggle);
         
         if(!ServiceUtils.isServicRunning(this, WLanScanService.class)){
-        	this.startService(new Intent(this, WLanScanService.class));
-        	this.wlanToggle.setChecked(true);
+        	ComponentName returnValue = this.startService(new Intent(this, WLanScanService.class));
+        	if(returnValue != null){
+        		this.wlanToggle.setChecked(true);
+        	}else{
+        		this.wlanToggle.setChecked(false);
+        	}
+        	
         }
         
         if(!ServiceUtils.isServicRunning(this, BluetoothScanService.class)){
-        	this.startService(new Intent(this, BluetoothScanService.class));
-        	this.btToggle.setChecked(true);
+        	ComponentName returnValue = this.startService(new Intent(this, BluetoothScanService.class));
+        	if(returnValue != null){
+        		this.btToggle.setChecked(true);
+        	}else{
+        		this.btToggle.setChecked(false);
+        	}
         }
         
         
