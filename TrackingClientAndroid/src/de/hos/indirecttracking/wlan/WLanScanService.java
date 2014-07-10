@@ -18,6 +18,7 @@ import de.hos.indirecttracking.model.WLanTracking;
 import de.hos.indirecttracking.sql.TrackingSQLiteHelper;
 
 public class WLanScanService extends Service {
+	private static final String TAG = "WLanScanService";
 	WifiManager wifiManager;
 	WifiReceiver receiver;
 	
@@ -57,7 +58,12 @@ public class WLanScanService extends Service {
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
+		try{
 		unregisterReceiver(receiver);
+		} 
+		catch(IllegalArgumentException ex){
+			Log.e(TAG, "Could not unregister Wlan receiver", ex);
+		}
 	}
 
 	private class WifiReceiver extends BroadcastReceiver {
