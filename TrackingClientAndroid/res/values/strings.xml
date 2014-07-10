@@ -9,4 +9,5 @@
     <string name="bt_disabled">Bluetooth Scan service is not running</string>
     <string name="bt_not_available">Their is no bluetooth available on this device</string>
 
+
 </resources>

@@ -24,9 +24,9 @@ public class BluetoothScanService extends Service {
 	BluetoothAdapter bAdapter;
 
 	BluetoothReceiver bReceiver;
-
+	
 	private String UDID;
-
+	
 	@Override
 	public IBinder onBind(Intent intent) {
 		// TODO: Return the communication channel to the service.
@@ -36,25 +36,24 @@ public class BluetoothScanService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-
+	
 		bAdapter = BluetoothAdapter.getDefaultAdapter();
-
+		
 		TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		this.UDID = telephonyManager.getDeviceId();
-
-		if (bAdapter != null) {
-			if (bAdapter.isEnabled()) {
+		
+		if(bAdapter != null){
+			if(bAdapter.isEnabled()){
 				bReceiver = new BluetoothReceiver();
-
-				registerReceiver(bReceiver, new IntentFilter(
-						BluetoothDevice.ACTION_FOUND));
-			} else {
-				Intent intent = new Intent(
-						BluetoothAdapter.ACTION_REQUEST_ENABLE);
+				
+				registerReceiver(bReceiver, new IntentFilter(BluetoothDevice.ACTION_FOUND));
+			}
+			else{
+				Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				this.startActivity(intent);
 			}
-
+			
 		}
 
 	}
@@ -62,9 +61,10 @@ public class BluetoothScanService extends Service {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		try {
-			unregisterReceiver(bReceiver);
-		} catch (IllegalArgumentException ex) {
+		try{
+		unregisterReceiver(bReceiver);
+		}
+		catch(IllegalArgumentException ex){
 			Log.e(TAG, "Could not unregister Bluetooth reveiver", ex);
 		}
 	}
@@ -73,16 +73,16 @@ public class BluetoothScanService extends Service {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		return super.onStartCommand(intent, flags, startId);
 	}
-
-	private class BluetoothReceiver extends BroadcastReceiver {
+	
+	private class BluetoothReceiver extends BroadcastReceiver{
 
 		private TrackingSQLiteHelper sqlite;
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-
+			
 			String action = intent.getAction();
-
+			
 			sqlite = new TrackingSQLiteHelper(context);
 
 			double lat = 0;
@@ -102,19 +102,18 @@ public class BluetoothScanService extends Service {
 					lon = location.getLongitude();
 				}
 			}
-
-			if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-				BluetoothDevice device = intent
-						.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-
-				BluetoothTracking track = new BluetoothTracking(UDID, lat, lon,
-						device.getAddress());
+			
+			if(BluetoothDevice.ACTION_FOUND.equals(action)){
+				BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+				
+				BluetoothTracking track = new BluetoothTracking(UDID, lat, lon, device.getAddress());
 				sqlite.addBTTrack(track);
-
-				// TODO
+				
+				//TODO
 			}
-
+			
 		}
+		
 
 	}
 }
