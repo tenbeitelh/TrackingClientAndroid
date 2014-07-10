@@ -3,5 +3,9 @@
 
     <string name="app_name">IndirectTracking</string>
     <string name="hello_world">Hello world!</string>
+    <string name="wlan_enabled">WLan Scan service is running</string>
+    <string name="wlan_disabled">WLan Scan service is not running</string>
+    <string name="bt_enabled">Bluetooth Scan service is running</string>
+    <string name="bt_disabled">Bluetooth Scan service is not running</string>
 
 </resources>

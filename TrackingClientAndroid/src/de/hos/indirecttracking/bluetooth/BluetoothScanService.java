@@ -16,8 +16,10 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.IBinder;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 public class BluetoothScanService extends Service {
+	private static final String TAG = "BluetoothScanService";
 	BluetoothManager bManager;
 	BluetoothAdapter bAdapter;
 
@@ -59,7 +61,12 @@ public class BluetoothScanService extends Service {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		try{
 		unregisterReceiver(bReceiver);
+		}
+		catch(IllegalArgumentException ex){
+			Log.e(TAG, "Could not unregister Bluetooth reveiver", ex);
+		}
 	}
 
 	@Override
