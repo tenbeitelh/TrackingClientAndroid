@@ -7,5 +7,6 @@
     <string name="wlan_disabled">WLan Scan service is not running</string>
     <string name="bt_enabled">Bluetooth Scan service is running</string>
     <string name="bt_disabled">Bluetooth Scan service is not running</string>
+    <string name="bt_not_available">Their is no bluetooth available on this device</string>
 
 </resources>

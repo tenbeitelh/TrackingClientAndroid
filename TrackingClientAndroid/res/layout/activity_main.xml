@@ -8,9 +8,9 @@
         android:id="@+id/bluetoothToggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="20dp"
-        android:layout_toLeftOf="@+id/wlanToggle"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/wlanToggle"
+        android:layout_marginTop="14dp"
         android:text="@string/bt_enabled" />
 
     <ToggleButton
@@ -19,7 +19,26 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="74dp"
         android:text="@string/wlan_enabled" />
+
+    <TextView
+        android:id="@+id/wlanTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bluetoothToggle"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/wlanToggle"
+        android:text="@string/wlan_enabled"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/btTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/bluetoothToggle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/wlanTV"
+        android:text="@string/bt_enabled"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
